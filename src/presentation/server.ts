@@ -10,7 +10,7 @@ interface Options{
     public_path?:string;
 }
 
-export class Server{
+export class Server {
     
         private readonly app=express();
         private serverListener?:any;

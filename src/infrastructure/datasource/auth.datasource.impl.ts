@@ -1,6 +1,6 @@
 import { bcryptAdapter, envs, jwtAdapter, prisma } from "@/config";
 import { AuthDatasource, AuthEntity, CreateAuthDto, CustomError, LoginAuthDto } from "@/domain";
-import { EmailService } from "@/presentation/services/email.service";
+import { EmailService } from "@/services/email.service";
 
 
 export class AuthDatasourceImpl implements AuthDatasource{
@@ -11,7 +11,7 @@ export class AuthDatasourceImpl implements AuthDatasource{
 
 
     async postLoginAuth(loginAuthDto: LoginAuthDto): Promise<AuthEntity> {
-        const auth= await prisma.tb_auth.findFirst({
+        const auth= await prisma.user.findFirst({
             where:{
                 correo:loginAuthDto.correo
             }
@@ -25,7 +25,7 @@ export class AuthDatasourceImpl implements AuthDatasource{
     
 
     async postRegisterAuth(createAuthDto: CreateAuthDto): Promise<AuthEntity> {
-        const existEmail= await prisma.tb_auth.findFirst({
+        const existEmail= await prisma.user.findFirst({
             where:{
                 correo:createAuthDto.correo
             }
@@ -36,7 +36,7 @@ export class AuthDatasourceImpl implements AuthDatasource{
 
         await this.sendEmailValidationLink(createAuthDto.correo);
         try {
-            const auth=await prisma.tb_auth.create({
+            const auth=await prisma.user.create({
                 data:{
                     ...createAuthDto,
                     password:hashedPasword

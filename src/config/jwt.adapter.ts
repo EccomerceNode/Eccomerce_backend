@@ -26,7 +26,7 @@ export class jwtAdapter{
 
       return new Promise((resolve)=>{
 
-        jwt.verify(token,jwt_seed,(err:any,decoded)=>{
+        jwt.verify(token,jwt_seed,(err:any, decoded)=>{
 
           if (err) {
             return resolve(null);

@@ -76,7 +76,7 @@ export class AuthController {
 
     public registerAuth(req:Request, res:Response){
 
-        const foto= req.files?.foto_url as UploadedFile;
+        const foto = req.files?.foto_url as UploadedFile;
         
         validationsImg.validationImg(foto).then((secureUrl)=>{
             
@@ -113,7 +113,7 @@ export class AuthController {
                 email:data.email,
                 respuesta:'Se valido correctamente su correo electronico'
             });
-        }).catch(error=>this.handleError(error,res));
+        }).catch(error => this.handleError(error,res));
 
     }
 
@@ -134,7 +134,7 @@ export class AuthController {
                     telefono:data?.telefono
                 });
 
-            }).catch(err=>this.handleError(err,res))  
+            }).catch(err => this.handleError(err,res))  
         
         }     
     

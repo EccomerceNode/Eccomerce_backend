@@ -6,7 +6,7 @@ export const validateEmailData=async(token:string)=>{
 
         const emailVerified:any= await jwtAdapter.validateToken(token);
         if(!emailVerified) throw CustomError.badRequest('el correo ingresado no es valido para la verificacion');
-        const verifyData=await prisma.tb_auth.findFirst({
+        const verifyData=await prisma.user.findFirst({
             where:{
                 correo:emailVerified.data
             }
@@ -14,7 +14,7 @@ export const validateEmailData=async(token:string)=>{
         if(!verifyData) throw CustomError.badRequest('no se encontro el usuario con el correo ingresado');
 
         if (verifyData.correo_validado===false) {
-            const updateEmailVerify= await prisma.tb_auth.update({
+            const updateEmailVerify= await prisma.user.update({
                 where:{
                     id_auth:verifyData?.id_auth
                 },
