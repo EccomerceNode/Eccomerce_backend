@@ -7,7 +7,7 @@ export const validateUserForToken=async(token:any)=>{
     const verifyUser:any =await jwtAdapter.validateToken(token);
      if(!verifyUser) throw CustomError.unauthorized('usuario no permitido');
 
-    const dataUserAcces=await prisma.tb_auth.findUnique({
+    const dataUserAcces=await prisma.user.findUnique({
         where:{
             id_auth:verifyUser.data
         }
