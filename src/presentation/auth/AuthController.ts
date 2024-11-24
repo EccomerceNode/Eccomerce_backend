@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import {UploadedFile} from 'express-fileupload';
 import { CreateAuthDto, CustomError, LoginAuthDto, CreateAuth, LoginAuth } from "../../domain";
 import { AuthRepository } from "../../domain/repository/user.repository";
-import { jwtAdapter, UUID } from "../../config";
+import { jwtAdapter } from "../../config";
 import { maxAgeHour, validateEmailData, validateUserForToken, validationsImg } from "../../helper";
 
 
