@@ -1,69 +1,75 @@
 import { CustomError } from "../errors/custom.error";
+import { Role } from "@/domain/types";
 
 
 export class AuthEntity{
 
-    public  id_auth:string;
+    public  user_id:string;
+    public  full_name:string;
+    public  phone:string;
+    public  email:string;
+    public  email_verified:boolean;
+    public  status:boolean;
     public  password:string;
     public  foto_url:string;
-    public  nombres:string;
-    public  apellidos:string;
-    public  correo:string;
-    public  correo_validado:boolean;
-    public  telefono:string;
-
+    public  rol:Role[];
+    
 
     constructor(
-        id_auth:string,
+        user_id:string,
         password:string,
         foto_url:string,
-        nombres:string,
-        apellidos:string,
-        correo:string,
-        correo_validado:boolean,
-        telefono:string
+        full_name:string,
+        email:string,
+        email_verified:boolean,
+        status:boolean,
+        phone:string,
+        rol:Role[]
         
 
     ){
-        this.id_auth=id_auth;
+        this.user_id=user_id;
         this.password=password,
         this.foto_url=foto_url,
-        this.nombres=nombres,
-        this.apellidos=apellidos,
-        this.correo=correo,
-        this.correo_validado=correo_validado,
-        this.telefono=telefono
+        this.full_name=full_name,
+        this.email=email,
+        this.status=status,
+        this.email_verified=email_verified,
+        this.phone=phone,
+        this.rol=rol
     }
 
     public static fromObject(obj:{[key:string]:any}):AuthEntity{
 
         const {
-            id_auth,
+            user_id,
             password,
             foto_url,
-            nombres,
-            apellidos,
-            correo,
-            correo_validado,
-            telefono
+            full_name,
+            email,
+            email_verified,
+            status,
+            phone,
+            rol
             }=obj;
 
-        if(!id_auth) throw CustomError.badRequest('no existe el id') ;
+        if(!user_id) throw CustomError.badRequest('no existe el id') ;
         if(!password) throw CustomError.badRequest('no existe el password') ;
-        if(!nombres) throw CustomError.badRequest('no existe el nombres') ;
-        if(!apellidos) throw CustomError.badRequest('no existe el apellido') ;
-        if(!correo) throw CustomError.badRequest('no existe el correo') ;
-        if(correo_validado===undefined) throw CustomError.badRequest('no existe el correo_validado') ;
+        if(!full_name) throw CustomError.badRequest('no existe el full_name') ;
+        if(!email) throw CustomError.badRequest('no existe el email') ;
+        if(email_verified===undefined) throw CustomError.badRequest('no existe el email_verified') ;
 
 
-        return new AuthEntity(id_auth,
+        return new AuthEntity(user_id,
             password,
             foto_url,
-            nombres,
-            apellidos,
-            correo,
-            correo_validado,
-            telefono);
+            full_name,
+            email,
+            email_verified,
+            status,
+            phone,
+            rol
+        );
 
     }
 

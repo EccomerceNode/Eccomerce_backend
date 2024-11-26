@@ -1,5 +1,5 @@
 import { UploadedFile } from "express-fileupload";
-import { imageSettings } from "./uploadImageSettings";
+import { imageSettings } from "./uploadImageSettings.helper";
 import path from "path";
 import fs from "fs";
 import { CloudinaryServer } from "../config";

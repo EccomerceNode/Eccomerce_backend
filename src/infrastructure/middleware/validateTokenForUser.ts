@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { jwtAdapter, prisma } from "../config";
+import { jwtAdapter, prisma } from "../../config";
 
 declare global {
     namespace Express {
@@ -21,7 +21,7 @@ export const validateTokenForUser=async (req:Request, res:Response,next:NextFunc
 
         const dataUserAcces=await prisma.user.findUnique({
             where:{
-                id_auth: verifyUser.data
+                user_id: verifyUser.data
             }
         })
 
