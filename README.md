@@ -17,11 +17,11 @@
 
     MAILER_SERVICE="servicio de mail example:gmail" <- escribir el mail que se esta usando ejemplo: gmail,hotmail, preferible gmail.  
     
-    MAILER_EMAIL="correo perteneciente a ese mail" <- escribir tu correo perteneciente al MAILER_SERVICE.
+    MAILER_EMAIL="email perteneciente a ese mail" <- escribir tu email perteneciente al MAILER_SERVICE.
 
     MAILER_SECRET_KEY="clave secreta del mail para hacer la conexion" <- esta clave secreta te la da el mismo servicio de google.
 
-    WEBSERVICE_URL=http://localhost:3000/api <- el link fue creado para redireccionar al usuario una vez confirma su correo en este caso de forma local, en caso lo deploye debera colocar el link de la pagina + /api 
+    WEBSERVICE_URL=http://localhost:3000/api <- el link fue creado para redireccionar al usuario una vez confirma su email en este caso de forma local, en caso lo deploye debera colocar el link de la pagina + /api 
 
     CLOUD_NAME=    <- variable de entorno que te da cloudinary
     API_KEY=       <- variable de entorno que te da cloudinary

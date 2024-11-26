@@ -9,7 +9,7 @@ export const validateUserForToken=async(token:any)=>{
 
     const dataUserAcces=await prisma.user.findUnique({
         where:{
-            id_auth:verifyUser.data
+            user_id:verifyUser.data
         }
     })
 

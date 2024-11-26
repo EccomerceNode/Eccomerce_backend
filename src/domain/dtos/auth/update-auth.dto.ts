@@ -1,54 +1,52 @@
+import { Role } from "@/domain/types";
 
 
 export class UpdateAuthDto{
 
     private constructor(
-        public readonly id:number,
+        public readonly user_id:string,
+        public readonly full_name:string,
+        public readonly phone:string,
+        public readonly email:string,
         public readonly password:string,
         public readonly foto_url:string,
-        public readonly nombres:string,
-        public readonly apellidos:string,
-        public readonly correo:string,
-        public readonly telefono:string,
+        public readonly rol:Role[],
+        
+        
     ){}
-
     get values(){
         const returnObj:{[key:string]:any}={};
-        if (this.id) returnObj.id=this.id;
-        if (this.nombres) returnObj.nombres=this.nombres;
-        if (this.apellidos) returnObj.apellidos=this.apellidos;
-        if (this.correo) returnObj.correo=this.correo;
-        if (this.telefono) returnObj.telefono=this.telefono;
+        if (this.user_id) returnObj.user_id=this.user_id;
+        if (this.full_name) returnObj.full_name=this.full_name;
+        if (this.phone) returnObj.phone=this.phone;
+        if (this.email) returnObj.email=this.email;
         if (this.password) returnObj.password=this.password;
         if (this.foto_url) returnObj.foto_url=this.foto_url;
+        if (this.rol) returnObj.rol=this.rol;
 
         return returnObj;
     }
 
     static create(props:{[key:string]:any}):[string?, UpdateAuthDto?]{
         const {
-            id,
+            user_id,
+            full_name,
+            phone,
+            email,
             password,
             foto_url,
-            nombres,
-            apellidos,
-            correo,
-            telefono
+            rol
             }=props;
 
-            if ( !id || isNaN( Number(id)) ) {
-                return ['id must be a valid number'];
-              }
             
-
         return [undefined,new UpdateAuthDto(
-                id,
+                user_id,
+                full_name,
+                phone,
+                email,
                 password,
                 foto_url,
-                nombres,
-                apellidos,
-                correo,
-                telefono
+                rol
                 )]
     }
 

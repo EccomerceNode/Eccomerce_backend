@@ -1,5 +1,5 @@
 import { bcryptAdapter, envs, jwtAdapter, prisma } from "@/config";
-import { AuthDatasource, AuthEntity, CreateAuthDto, CustomError, LoginAuthDto } from "@/domain";
+import { AuthDatasource, AuthEntity, CreateAuthDto, CustomError, LoginAuthDto, UpdateAuthDto } from "@/domain";
 import { EmailService } from "@/services/email.service";
 
 
@@ -8,12 +8,13 @@ export class AuthDatasourceImpl implements AuthDatasource{
      constructor(
          readonly emailService:EmailService
     ){}
+    
 
 
     async postLoginAuth(loginAuthDto: LoginAuthDto): Promise<AuthEntity> {
         const auth= await prisma.user.findFirst({
             where:{
-                correo:loginAuthDto.correo
+                email:loginAuthDto.email
             }
         })
         if(!auth) throw CustomError.badRequest('Email o Password incorrectos-email');
@@ -27,14 +28,14 @@ export class AuthDatasourceImpl implements AuthDatasource{
     async postRegisterAuth(createAuthDto: CreateAuthDto): Promise<AuthEntity> {
         const existEmail= await prisma.user.findFirst({
             where:{
-                correo:createAuthDto.correo
+                email:createAuthDto.email
             }
         })   
         if(existEmail) throw CustomError.badRequest('el email ya existe');
 
         const hashedPasword=bcryptAdapter.hash(createAuthDto.password);
 
-        await this.sendEmailValidationLink(createAuthDto.correo);
+        await this.sendEmailValidationLink(createAuthDto.email);
         try {
             const auth=await prisma.user.create({
                 data:{
@@ -50,6 +51,34 @@ export class AuthDatasourceImpl implements AuthDatasource{
         }
     }
 
+
+    async updateUser(updateAuthDto: UpdateAuthDto): Promise<AuthEntity> {
+        const existId= await prisma.user.findFirst({
+            where:{
+                user_id:updateAuthDto.user_id
+            }
+        })
+        if(!existId) throw CustomError.badRequest("User no exist");
+
+        
+        try {
+            const {user_id,...updateDto}=updateAuthDto;
+
+            const updateData=await prisma.user.update({
+                where:{
+                    user_id:updateAuthDto.user_id
+                },
+                data:updateDto
+            })
+            
+            if(!updateData) throw CustomError.badRequest("Error Data-update");
+            return AuthEntity.fromObject(updateData);
+        } catch (error) {
+            console.log(error);
+            throw CustomError.internalServer("Error server");
+            
+        }
+    }
 
 
     private async sendEmailValidationLink(email:string){

@@ -28,6 +28,7 @@ export class AuthRoutes{
 
         router.post('/logout',authController.logoutAuth);
         router.post('/register',authController.registerAuth);
+        router.put('/:id',authController.updateAuth);
 
         router.get('/validate-email/:token',authController.tokenAuthEmail);
         router.get('/validate-token',authController.validateTokenAccessAuth);

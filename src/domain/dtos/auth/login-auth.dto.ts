@@ -6,7 +6,7 @@ export class LoginAuthDto{
 
     private constructor(
         public readonly password:string,
-        public readonly correo:string,
+        public readonly email:string,
     ){}
 
     static create(props:{[key:string]:any}):[string?, LoginAuthDto?]{
@@ -15,11 +15,11 @@ export class LoginAuthDto{
 
         const {
             password,
-            correo
+            email
             }=props;
 
-            if (!correo) return ['Tiene que escribir un correo ',undefined];
-            if (!regularExps.email.test(correo)) return ['el correo no es valido',undefined];
+            if (!email) return ['Tiene que escribir un email ',undefined];
+            if (!regularExps.email.test(email)) return ['el email no es valido',undefined];
             if (!password) return ['Tiene que colocar un password ',undefined];
             if (password.legth<6) return ['el password debe tener mas de 6 letras ',undefined];
 
@@ -28,7 +28,7 @@ export class LoginAuthDto{
 
         return [undefined,new LoginAuthDto(
                 password,
-                correo
+                email
                 )]
     }
 
